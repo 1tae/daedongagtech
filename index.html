@@ -89,12 +89,17 @@
         />
       </div>
       <div class="post-actions">
-         </button>
+         <button
+          id="link1"
+          onclick="location.href='https://ko.daedong.co.kr/deep-link'"
+        >
+          http 딥링크
+        </button>
         <button
           id="link2"
           onclick="location.href='daedonguserconnect://main_page'"
         >
-          test link2
+          daedonguserconnect링크
         </button>
       </div>
       <hr />
@@ -103,9 +108,4 @@
       </div>
     </div>
   </body>
-  <script>
-    $("#link1").on("click", () => {
-      alert(1);
-    });
-  </script>
 </html>
