@@ -39,27 +39,44 @@
     <div
       style="
         width: 100%;
-        height: 2.2rem;
-        border: 1px solid lightgray;
-        text-align: center;
+        height: 50px;
         vertical-align: middle;
-        padding-top: 1rem;
         font-size: 1rem;
+        font-weight: bold;
+        color: white;
+        background-color: #303030;
       "
     >
-      커뮤니티
+      <img
+        src="./ddm_logo_L.png"
+        style="margin-left: 1rem; margin-top: 12.5px"
+        alt="test"
+      />
     </div>
     <div style="position: absolute; top: 0.5rem; right: 1rem">
       <button
         style="
-          border-radius: 1rem;
-          background-color: dimgrey;
+          border-radius: 0.3rem;
+          background-color: rgb(245, 130, 59);
           border: none;
           color: white;
           padding: 0.5rem;
           width: 4rem;
         "
         onclick="location.href='https://ko.daedong.co.kr/deep-link'"
+      >
+        앱 설치
+      </button>
+      <button
+        style="
+          border-radius: 0.3rem;
+          background-color: dimgrey;
+          border: none;
+          color: white;
+          padding: 0.5rem;
+          width: 4rem;
+        "
+        onclick="location.href='daedonguserconnect://main_page'"
       >
         앱 열기
       </button>
@@ -83,9 +100,18 @@
         class="user-info"
         style="display: flex; margin-top: 1rem; align-items: center"
       >
-        <div id="profile-image" style="flex-direction: row">
+        <div
+          id="profile-image"
+          style="
+            flex-direction: row;
+            width: 50px;
+            height: 50px;
+            background-color: lightgray;
+            border-radius: 100%;
+          "
+        >
           <img
-            src="https://placehold.co/50x50?text=profile+image"
+            src="https://picsum.photos/50/50"
             alt="프로필사진"
             style="border-radius: 100%"
           />
@@ -115,12 +141,12 @@
           <a href="javascript:void(0)">#메론</a>
         </div>
         <img
-          src="https://placehold.co/600x400?text=Hello+World"
+          src="https://picsum.photos/600/400"
           alt="갱얼쥐"
-          style="max-width: 100%; min-width: 100%"
+          style="max-width: 100%; min-width: 100%; min-height: 100px"
         />
         <img
-          src="https://placehold.co/600x400?text=Daedong+Agtech"
+          src="https://picsum.photos/600/400"
           alt="갱얼쥐"
           style="max-width: 100%; min-width: 100%"
         />
@@ -140,5 +166,6 @@
         </button> -->
       </div>
     </div>
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
   </body>
 </html>
