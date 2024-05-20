@@ -134,11 +134,7 @@
       >
         앱 설치
       </button>
-      <button
-        id="open-app"
-        class="link-btn"
-        onclick="location.href='daedonguserconnect://main_page'"
-      >
+      <button id="open-app" class="link-btn" onclick="appOpen()">
         앱 열기
       </button>
     </div>
@@ -171,6 +167,14 @@
     </div>
     <script src="http://code.jquery.com/jquery-latest.min.js"></script>
     <script>
+      var launchAppUrl = "daedong19470520://main_page"; // 앱 스키마
+      var timer; // 타이머
+      var schInterval;
+      var userAgent = navigator.userAgent.toLowerCase();
+      var isAndroid = userAgent.search("android") > -1;
+      var isIOS = /iphone|ipad|ipod|mac os/i.test(userAgent);
+      var os;
+
       $(document).on("ready", () => {
         // 현재 url 가져오기
         const url = new URL(window.location.href);
@@ -214,11 +218,107 @@
 
         // 게시글 아이디 및 딥링크 url설정
         let boardId = urlParams.get("boardId");
-        $("#open-app").attr(
-          "onclick",
-          `location.href='daedong19470520://main_page?boardId=${boardId}'`
-        );
+        launchAppUrl += `?boardId=${boardId}'`;
       });
+
+      // ###################################################
+      function mo_chk() {
+        var mobile = /iphone|ipad|ipod|mac os|android/i.test(
+          navigator.userAgent.toLowerCase()
+        );
+
+        if (mobile) {
+          var userAgent = navigator.userAgent.toLowerCase();
+          if (userAgent.search("android") > -1) {
+            return (os = "android");
+          } else if (
+            userAgent.search("iphone") > -1 ||
+            userAgent.search("ipod") > -1 ||
+            userAgent.search("ipad") > -1 ||
+            userAgent.search("mac os") > -1
+          ) {
+            return (os = "ios");
+          } else {
+            return (os = "otehr");
+          }
+        } else {
+          return (os = "pc");
+        }
+      }
+
+      mo_chk();
+
+      // 인터벌, 타이머 삭제
+      function clearTimer() {
+        clearInterval(schInterval);
+        clearTimeout(timer);
+      }
+
+      // 인터벌 마다 동작할 기능
+      function intervalSch() {
+        // 매 인터벌 마다 웹뷰가 활성화 인지 체크
+        if (document.webkitHidden || document.hidden) {
+          // 웹뷰 비활성화
+          clearTimer(); // 앱이 설치되어있을 경우 타이머 제거
+        } else {
+          // 웹뷰 활성화
+          console.log("타이머 동작");
+        }
+      }
+      function appOpen() {
+        if (os == "pc") {
+          alert("모바일 환경에서 실행해주세요.");
+          // location.href = 'https://play.google.com/store/apps/details?id=com.hae.daedong.user'
+        } else if (os == "android") {
+          // location.href = 'intent://main_page/#Intent;scheme=daedonguserconnect;package=com.hae.daedong.user;S.browser_fallback_url=market%3a%2f%2fdetails%3fid%3dcom.hae.daedong.user;end'
+          // location.href = 'market://details?id=com.hae.daedong.user'
+          // location.href = 'daedonguserconnect://main_page'
+          location.href =
+            "intent://main_page/#Intent;scheme=daedonguserconnect;package=com.hae.daedong.user;S.browser_fallback_url=https://play.google.com/store/apps/details?id=com.hae.daedong.user;end";
+
+          schInterval = setInterval(intervalSch, 500);
+
+          var _old_alert = window.alert;
+          window.alert = function () {
+            // 기존 alert 함수 실행
+            _old_alert.apply(window, arguments);
+            //추가 동작 기입
+            clearTimer();
+          };
+
+          timer = setTimeout(function () {
+            location.href =
+              "https://play.google.com/store/apps/details?id=com.hae.daedong.user";
+
+            clearInterval(schInterval);
+          }, 2500);
+        } else {
+          // 앱 실행(iOS인 경우)
+          location.href = launchAppUrl;
+
+          // 앱이 설치 되어있는지 체크
+          schInterval = setInterval(intervalSch, 500);
+
+          var _old_alert = window.alert;
+          window.alert = function () {
+            // 기존 alert 함수 실행
+            _old_alert.apply(window, arguments);
+            //추가 동작 기입
+            clearTimer();
+          };
+
+          timer = setTimeout(function () {
+            location.href =
+              "https://apps.apple.com/kr/app/%EB%8C%80%EB%8F%99%EC%BB%A4%EB%84%A5%ED%8A%B8/id1625221269";
+            // if(isAndroid){
+            // 	location.href = "https://play.google.com/store/apps/details?id=com.hae.daedong.user";
+            // }else if(isIOS){
+            // 	location.href = "https://apps.apple.com/kr/app/%EB%8C%80%EB%8F%99%EC%BB%A4%EB%84%A5%ED%8A%B8/id1625221269";
+            // }
+            clearInterval(schInterval);
+          }, 2500);
+        }
+      }
     </script>
   </body>
 </html>
