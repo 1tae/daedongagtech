@@ -146,6 +146,7 @@
             <img
               id="profile-img"
               alt="프로필사진"
+              src="./profile.png"
               onLoad="javascript:void(0)"
             />
           </div>
@@ -195,9 +196,11 @@
         const date = urlParams.get("boardDate");
 
         //$("#profile-img").attr("src", profileImg.replace(/\"/gi, "")).load();
-        $("#profile-img")
-          .attr("src", "https://connect-cdn.daedong.co.kr" + profileImg)
-          .load();
+        if (profileImg) {
+          $("#profile-img")
+            .attr("src", "https://connect-cdn.daedong.co.kr" + profileImg)
+            .load();
+        }
         $("#name").text(name);
         $("#date").text(date);
 
@@ -276,9 +279,7 @@
           // location.href = 'intent://main_page/#Intent;scheme=daedonguserconnect;package=com.hae.daedong.user;S.browser_fallback_url=market%3a%2f%2fdetails%3fid%3dcom.hae.daedong.user;end'
           // location.href = 'market://details?id=com.hae.daedong.user'
           // location.href = 'daedonguserconnect://main_page'
-          location.href =
-            "intent://main_page/#Intent;scheme=daedonguserconnect;package=com.hae.daedong.user;S.browser_fallback_url=https://play.google.com/store/apps/details?id=com.hae.daedong.user;end";
-
+          location.href = launchAppUrl;
           schInterval = setInterval(intervalSch, 500);
 
           var _old_alert = window.alert;
