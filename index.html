@@ -215,8 +215,8 @@
         }
         if (contentImg) {
           const img = `<img class="content-img" src="https://connect-cdn.daedong.co.kr${contentImg}" onLoad="javascript:void(0)"/>`;
+          $(".post").append(img);
         }
-        $(".post").append(img);
 
         // 게시글 아이디 및 딥링크 url설정
         let boardId = urlParams.get("boardId");
