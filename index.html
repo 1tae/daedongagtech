@@ -3,7 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="upgrade-insecure-requests"
+    />
     <style>
       body {
         margin: 0;
@@ -170,12 +173,12 @@
     <script>
       $(document).on("ready", () => {
         // 현재 url 가져오기
-        //const url = new URL(window.location.href);
+        const url = new URL(window.location.href);
 
         // 테스트용 URL
-        const url = new URL(
+        /* const url = new URL(
           `https://connect-cdn.daedong.co.kr/dev/board?agsProfileUrl=/dev/profile/ict/20240516-161555-43ed3915040c481baf8e78fec9bed9e6.jpg&agsNicknm=방금변경1&boardId=PE2405140001&boardTypeName=병해충&boardDate=31일 전&boardContent=아주긴글아주긴글아주긴글아주긴글아주긴글아주긴글아주 긴글 아주&boardKeyword=ㄷㄷㄷ;433;555;666;777&imgUrl=/dev/board/ict/20240514-000734-c2731fb2f220475dadfb94c5b59bdf1f.jpg`
-        );
+        ); */
 
         // 파라미터 추출
         const urlParams = url.searchParams;
