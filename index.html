@@ -203,11 +203,12 @@
 
         // content
         const content = urlParams.get("boardContent");
-        const keyword = urlParams.get("boardKeyword")?.split(";");
+        const keywords = urlParams.get("boardKeyword");
         const contentImg = urlParams.get("imgUrl");
 
         $("#post").text(content);
-        if (keyword) {
+        if (keywords) {
+          var keyword = keywords.split(";");
           for (var k in keyword) {
             let tag = `<a href="javascript:void(0)">#${keyword[k]}</a>`;
             $(".tag-area").append(tag);
