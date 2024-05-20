@@ -206,7 +206,7 @@
         const keywords = urlParams.get("boardKeyword");
         const contentImg = urlParams.get("imgUrl");
 
-        $("#post").text(content);
+        $("#post").text(content.length >= 30 ? content + "..." : content);
         if (keywords) {
           var keyword = keywords.split(";");
           for (var k in keyword) {
