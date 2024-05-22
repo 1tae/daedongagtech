@@ -246,24 +246,22 @@
         location.href = launchAppUrl;
       }
 
-      var tid;
       window.navigation.addEventListener("navigate", (event) => {
         if (history.forward()) return;
-        tid = setTimeout(() => {
+        const tid = setTimeout(() => {
           var appStoreURL =
             os == "ios"
               ? "https://apps.apple.com/kr/app/id1625221269"
               : "https://play.google.com/store/apps/details?id=com.hae.daedong.user"; // 앱 스토어 URL
           location.href = appStoreURL;
+          location.href = url;
         }, 1500);
         $(window).on("unload", () => {
           clearTimeout(tid);
-          location.href = url;
         });
       });
 
       mo_chk();
-      clearTimeout(tid);
     </script>
   </body>
 </html>
