@@ -244,53 +244,29 @@
 
       mo_chk();
 
-      // 인터벌, 타이머 삭제
-      function clearTimer() {
-        clearInterval(schInterval);
-        clearTimeout(timer);
-      }
-
-      // 인터벌 마다 동작할 기능
-      function intervalSch() {
-        // 매 인터벌 마다 웹뷰가 활성화 인지 체크
-        if (document.webkitHidden || document.hidden) {
-          // 웹뷰 비활성화
-          clearTimer(); // 앱이 설치되어있을 경우 타이머 제거
-        } else {
-          // 웹뷰 활성화
-          console.log("타이머 동작");
-        }
-      }
-
       function openApp() {
-        var appStoreURL =
-          os == "ios"
-            ? "https://apps.apple.com/kr/app/id1625221269"
-            : "https://play.google.com/store/apps/details?id=com.hae.daedong.user"; // 앱 스토어 URL
-        var start = new Date().getTime();
-        var timeout;
-        // 1500ms 후에 앱 스토어로 리디렉션
-        var openAppStore = function () {
-          var end = new Date().getTime();
-          if (end - start < 1500) {
-            window.location = appStoreURL;
-          }
-          document.body.removeChild(ifr);
-        };
-        // 앱 스킴을 호출
-        var ifr = document.createElement("iframe");
-        ifr.setAttribute("src", launchAppUrl);
-        ifr.setAttribute("style", "display:none");
-        document.body.appendChild(ifr);
-        // 1500ms 후에 실행되는 함수 설정
-        timeout = setTimeout(openAppStore, 1500);
-        // 페이지가 숨겨지거나 포커스를 잃으면 앱 스토어로 리디렉션 방지
-        var clear = function () {
-          clearTimeout(timeout);
-          document.visibilityState !== "hidden" &&
-            document.removeEventListener("visibilitychange", clear);
-        };
-        document.addEventListener("visibilitychange", clear);
+        if (os == "pc") {
+          alert("모바일 환경에서 실행해주세요.");
+        } else {
+          var appStoreURL =
+            os == "ios"
+              ? "https://apps.apple.com/kr/app/id1625221269"
+              : "https://play.google.com/store/apps/details?id=com.hae.daedong.user"; // 앱 스토어 URL
+          location.href = launchAppUrl;
+          // 앱이 설치 되어있는지 체크
+          schInterval = setInterval(intervalSch, 500);
+          var _old_alert = window.alert;
+          window.alert = function () {
+            // 기존 alert 함수 실행
+            _old_alert.apply(window, arguments);
+            //추가 동작 기입
+            clearTimer();
+          };
+          timer = setTimeout(function () {
+            location.href = appStoreURL;
+            clearInterval(schInterval);
+          }, 2500);
+        }
       }
     </script>
   </body>
