@@ -132,7 +132,7 @@
       >
         앱 설치
       </button>
-      <button id="open-app" class="link-btn" onclick="appOpen()">
+      <button id="open-app" class="link-btn" onclick="openApp()">
         앱 열기
       </button>
     </div>
@@ -195,7 +195,8 @@
         const name = urlParams.get("agsNicknm");
         const date = urlParams.get("boardDate");
 
-        //$("#profile-img").attr("src", profileImg.replace(/\"/gi, "")).load();
+        // 프로필 이미지 설정
+        //$("#profile-img").attr("src", profileImg).load();
         if (profileImg) {
           $("#profile-img")
             .attr("src", "https://connect-cdn.daedong.co.kr" + profileImg)
@@ -227,7 +228,6 @@
         launchAppUrl += `?boardId=${boardId}`;
       });
 
-      // ###################################################
       function mo_chk() {
         var mobile = /iphone|ipad|ipod|mac os|android/i.test(
           navigator.userAgent.toLowerCase()
@@ -271,14 +271,46 @@
           console.log("타이머 동작");
         }
       }
-      function appOpen() {
+
+      function openApp() {
         if (os == "pc") {
           alert("모바일 환경에서 실행해주세요.");
-          // location.href = 'https://play.google.com/store/apps/details?id=com.hae.daedong.user'
+        } else {
+          var appStoreURL =
+            os == "ios"
+              ? "https://apps.apple.com/kr/app/%EB%8C%80%EB%8F%99%EC%BB%A4%EB%84%A5%ED%8A%B8/id1625221269"
+              : "https://play.google.com/store/apps/details?id=com.hae.daedong.user"; // 앱 스토어 URL
+          var start = new Date().getTime();
+          var timeout;
+          // 1500ms 후에 앱 스토어로 리디렉션
+          var openAppStore = function () {
+            var end = new Date().getTime();
+            if (end - start < 1500) {
+              window.location = appStoreURL;
+            }
+            document.body.removeChild(ifr);
+          };
+          // 앱 스킴을 호출
+          var ifr = document.createElement("iframe");
+          ifr.setAttribute("src", launchAppUrl);
+          ifr.setAttribute("style", "display:none");
+          document.body.appendChild(ifr);
+          // 1500ms 후에 실행되는 함수 설정
+          timeout = setTimeout(openAppStore, 1500);
+          // 페이지가 숨겨지거나 포커스를 잃으면 앱 스토어로 리디렉션 방지
+          var clear = function () {
+            clearTimeout(timeout);
+            document.visibilityState !== "hidden" &&
+              document.removeEventListener("visibilitychange", clear);
+          };
+          document.addEventListener("visibilitychange", clear);
+        }
+      }
+
+      /*       function appOpen() {
+        if (os == "pc") {
+          alert("모바일 환경에서 실행해주세요.");
         } else if (os == "android") {
-          // location.href = 'intent://main_page/#Intent;scheme=daedonguserconnect;package=com.hae.daedong.user;S.browser_fallback_url=market%3a%2f%2fdetails%3fid%3dcom.hae.daedong.user;end'
-          // location.href = 'market://details?id=com.hae.daedong.user'
-          // location.href = 'daedonguserconnect://main_page'
           location.href = launchAppUrl;
           schInterval = setInterval(intervalSch, 500);
 
@@ -314,15 +346,10 @@
           timer = setTimeout(function () {
             location.href =
               "https://apps.apple.com/kr/app/%EB%8C%80%EB%8F%99%EC%BB%A4%EB%84%A5%ED%8A%B8/id1625221269";
-            // if(isAndroid){
-            // 	location.href = "https://play.google.com/store/apps/details?id=com.hae.daedong.user";
-            // }else if(isIOS){
-            // 	location.href = "https://apps.apple.com/kr/app/%EB%8C%80%EB%8F%99%EC%BB%A4%EB%84%A5%ED%8A%B8/id1625221269";
-            // }
             clearInterval(schInterval);
           }, 2500);
         }
-      }
+      } */
     </script>
   </body>
 </html>
