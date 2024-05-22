@@ -243,23 +243,37 @@
       }
       mo_chk();
 
-      var isBlurred = false;
-      var didFallback = false;
+      class UrlSchemeCaller {
+        windowState = "focus";
 
-      window.addEventListener("blur", function () {
-        isBlurred = true;
-      });
+        constructor() {
+          this.init();
+        }
 
-      window.addEventListener("focus", function () {
-        isBlurred = false;
-        appStoreFallback();
-      });
+        init() {
+          window.addEventListener("focus", () => {
+            this.windowState = "focus";
+          });
+
+          window.addEventListener("blur", () => {
+            this.windowState = "blur";
+          });
+        }
+
+        call(urlScheme, notInstalledCallback) {
+          location.href = urlScheme;
+
+          setTimeout(() => {
+            if (this.windowState === "focus") {
+              notInstalledCallback();
+            }
+          }, 300);
+        }
+      }
+
+      window.urlSchemeCaller = new UrlSchemeCaller();
 
       function appStoreFallback() {
-        if (isBlurred || didFallback) {
-          window.location = url;
-          return;
-        }
         var appStoreURL =
           os == "ios"
             ? "itms-appss://apps.apple.com/kr/app/id1625221269"
@@ -269,11 +283,7 @@
       }
 
       function openApp() {
-        window.top.location = launchAppUrl;
-        setTimeout(function () {
-          appStoreFallback();
-        }, 500);
-        window.location = url;
+        urlSchemeCaller.call(launchAppUrl, appStoreFallback);
       }
     </script>
   </body>
