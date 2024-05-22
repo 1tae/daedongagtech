@@ -261,7 +261,7 @@
         }
 
         call(urlScheme, notInstalledCallback) {
-          location.href = urlScheme;
+          window.location = urlScheme;
 
           setTimeout(() => {
             if (this.windowState === "focus") {
@@ -278,7 +278,7 @@
           os == "ios"
             ? "https://apps.apple.com/kr/app/id1625221269"
             : "https://play.google.com/store/apps/details?id=com.hae.daedong.user"; // 앱 스토어 URL
-        window.top.location = appStoreURL;
+        window.location = appStoreURL;
         didFallback = true;
       }
 
