@@ -263,38 +263,34 @@
       }
 
       function openApp() {
-        if (os == "pc") {
-          alert("모바일 환경에서 실행해주세요.");
-        } else {
-          var appStoreURL =
-            os == "ios"
-              ? "https://apps.apple.com/kr/app/%EB%8C%80%EB%8F%99%EC%BB%A4%EB%84%A5%ED%8A%B8/id1625221269"
-              : "https://play.google.com/store/apps/details?id=com.hae.daedong.user"; // 앱 스토어 URL
-          var start = new Date().getTime();
-          var timeout;
-          // 1500ms 후에 앱 스토어로 리디렉션
-          var openAppStore = function () {
-            var end = new Date().getTime();
-            if (end - start < 1500) {
-              window.location = appStoreURL;
-            }
-            document.body.removeChild(ifr);
-          };
-          // 앱 스킴을 호출
-          var ifr = document.createElement("iframe");
-          ifr.setAttribute("src", launchAppUrl);
-          ifr.setAttribute("style", "display:none");
-          document.body.appendChild(ifr);
-          // 1500ms 후에 실행되는 함수 설정
-          timeout = setTimeout(openAppStore, 1500);
-          // 페이지가 숨겨지거나 포커스를 잃으면 앱 스토어로 리디렉션 방지
-          var clear = function () {
-            clearTimeout(timeout);
-            document.visibilityState !== "hidden" &&
-              document.removeEventListener("visibilitychange", clear);
-          };
-          document.addEventListener("visibilitychange", clear);
-        }
+        var appStoreURL =
+          os == "ios"
+            ? "https://apps.apple.com/kr/app/id1625221269"
+            : "https://play.google.com/store/apps/details?id=com.hae.daedong.user"; // 앱 스토어 URL
+        var start = new Date().getTime();
+        var timeout;
+        // 1500ms 후에 앱 스토어로 리디렉션
+        var openAppStore = function () {
+          var end = new Date().getTime();
+          if (end - start < 1500) {
+            window.location = appStoreURL;
+          }
+          document.body.removeChild(ifr);
+        };
+        // 앱 스킴을 호출
+        var ifr = document.createElement("iframe");
+        ifr.setAttribute("src", launchAppUrl);
+        ifr.setAttribute("style", "display:none");
+        document.body.appendChild(ifr);
+        // 1500ms 후에 실행되는 함수 설정
+        timeout = setTimeout(openAppStore, 1500);
+        // 페이지가 숨겨지거나 포커스를 잃으면 앱 스토어로 리디렉션 방지
+        var clear = function () {
+          clearTimeout(timeout);
+          document.visibilityState !== "hidden" &&
+            document.removeEventListener("visibilitychange", clear);
+        };
+        document.addEventListener("visibilitychange", clear);
       }
     </script>
   </body>
