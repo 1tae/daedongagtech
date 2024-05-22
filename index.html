@@ -245,31 +245,22 @@
       mo_chk();
 
       function openApp() {
+        location.href = launchAppUrl;
+      }
+
+      window.navigation.addEventListener("navigate", (event) => {
+        const tid = setTimeout(storeLink, 1500);
+        $(window).on("unload", () => {
+          clearTimeout(tid);
+        });
+      });
+
+      function storeLink() {
         var appStoreURL =
           os == "ios"
             ? "https://apps.apple.com/kr/app/id1625221269"
             : "https://play.google.com/store/apps/details?id=com.hae.daedong.user"; // 앱 스토어 URL
-        var start = new Date().getTime();
-        var timeout;
-        // 1500ms 후에 앱 스토어로 리디렉션
-        var openAppStore = function () {
-          var end = new Date().getTime();
-          if (end - start < 1500) {
-            location.href = launchAppUrl;
-          }
-        };
-        // 페이지가 숨겨지거나 포커스를 잃으면 앱 스토어로 리디렉션 방지
-        var clear = function () {
-          clearTimeout(timeout);
-          document.removeEventListener("visibilitychange", clear);
-          document.removeEventListener("blur", clear);
-        };
-        // 1500ms 후에 실행되는 함수 설정
-        timeout = setTimeout(openAppStore, 1500);
-        // URL 스킴을 호출
-        location.href = launchAppUrl;
-        document.addEventListener("visibilitychange", clear);
-        document.addEventListener("blur", clear);
+        location.href = appStoreURL;
       }
     </script>
   </body>
