@@ -243,25 +243,26 @@
       }
 
       mo_chk();
-
+      clearTimeout(tid);
       function openApp() {
         location.href = launchAppUrl;
       }
 
       window.navigation.addEventListener("navigate", (event) => {
-        const tid = setTimeout(storeLink, 1500);
+        if (history.forward()) return;
+        const tid = setTimeout(() => {
+          var appStoreURL =
+            os == "ios"
+              ? "https://apps.apple.com/kr/app/id1625221269"
+              : "https://play.google.com/store/apps/details?id=com.hae.daedong.user"; // 앱 스토어 URL
+          location.href = appStoreURL;
+        }, 1500);
         $(window).on("unload", () => {
           clearTimeout(tid);
         });
       });
 
-      function storeLink() {
-        var appStoreURL =
-          os == "ios"
-            ? "https://apps.apple.com/kr/app/id1625221269"
-            : "https://play.google.com/store/apps/details?id=com.hae.daedong.user"; // 앱 스토어 URL
-        location.href = appStoreURL;
-      }
+      function storeLink() {}
     </script>
   </body>
 </html>
