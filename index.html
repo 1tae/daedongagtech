@@ -245,10 +245,13 @@
       function openApp() {
         window.location = launchAppUrl;
       }
-      let moveStore = false;
+
       window.navigation.addEventListener("navigate", (event) => {
-        if (moveStore) {
-          moveStore = false;
+        if (
+          window.performance.getEntriesByType("navigation")[0].type ==
+          "back_forward"
+        ) {
+          alert(1);
           return false;
         }
         const tid = setTimeout(() => {
