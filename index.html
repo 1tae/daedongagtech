@@ -249,7 +249,7 @@
       window.navigation.addEventListener("navigate", (event) => {
         if (moveStore) {
           moveStore = false;
-          return;
+          return false;
         }
         const tid = setTimeout(() => {
           moveStore = true;
