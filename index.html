@@ -125,16 +125,10 @@
       <img class="logo" src="./ddm_logo_L.png" alt="logo" />
     </div>
     <div class="link-area">
-      <button
-        class="link-btn"
-        style="margin-right: 0.3rem"
-        onclick="location.href='https://ko.daedong.co.kr/deep-link'"
-      >
+      <button class="link-btn" style="margin-right: 0.3rem" onclick="openApp()">
         앱 설치
       </button>
-      <button id="open-app" class="link-btn" onclick="openApp()">
-        앱 열기
-      </button>
+      <button id="open-app" class="link-btn">앱 열기</button>
     </div>
     <div class="post">
       <div class="content-area">
@@ -178,11 +172,6 @@
         // 현재 url 가져오기
         const url = new URL(window.location.href);
 
-        // 테스트용 URL
-        /* const url = new URL(
-          `https://connect-cdn.daedong.co.kr/dev/board?agsProfileUrl=/dev/profile/ict/20240516-161555-43ed3915040c481baf8e78fec9bed9e6.jpg&agsNicknm=방금변경1&boardId=PE2405140001&boardTypeName=병해충&boardDate=31일 전&boardContent=아주긴글아주긴글아주긴글아주긴글아주긴글아주긴글아주 긴글 아주&boardKeyword=ㄷㄷㄷ;433;555;666;777&imgUrl=/dev/board/ict/20240514-000734-c2731fb2f220475dadfb94c5b59bdf1f.jpg`
-        ); */
-
         // 파라미터 추출
         const urlParams = url.searchParams;
 
@@ -195,8 +184,6 @@
         const name = urlParams.get("agsNicknm");
         const date = urlParams.get("boardDate");
 
-        // 프로필 이미지 설정
-        //$("#profile-img").attr("src", profileImg).load();
         if (profileImg) {
           $("#profile-img")
             .attr("src", "https://connect-cdn.daedong.co.kr" + profileImg)
@@ -226,6 +213,9 @@
         // 게시글 아이디 및 딥링크 url설정
         let boardId = urlParams.get("boardId");
         launchAppUrl += `?boardId=${boardId}`;
+        $("#open-app").on("click", () => {
+          location.href = launchAppUrl;
+        });
       });
 
       function mo_chk() {
@@ -306,50 +296,6 @@
           document.addEventListener("visibilitychange", clear);
         }
       }
-
-      /*       function appOpen() {
-        if (os == "pc") {
-          alert("모바일 환경에서 실행해주세요.");
-        } else if (os == "android") {
-          location.href = launchAppUrl;
-          schInterval = setInterval(intervalSch, 500);
-
-          var _old_alert = window.alert;
-          window.alert = function () {
-            // 기존 alert 함수 실행
-            _old_alert.apply(window, arguments);
-            //추가 동작 기입
-            clearTimer();
-          };
-
-          timer = setTimeout(function () {
-            location.href =
-              "https://play.google.com/store/apps/details?id=com.hae.daedong.user";
-
-            clearInterval(schInterval);
-          }, 2500);
-        } else {
-          // 앱 실행(iOS인 경우)
-          location.href = launchAppUrl;
-
-          // 앱이 설치 되어있는지 체크
-          schInterval = setInterval(intervalSch, 500);
-
-          var _old_alert = window.alert;
-          window.alert = function () {
-            // 기존 alert 함수 실행
-            _old_alert.apply(window, arguments);
-            //추가 동작 기입
-            clearTimer();
-          };
-
-          timer = setTimeout(function () {
-            location.href =
-              "https://apps.apple.com/kr/app/%EB%8C%80%EB%8F%99%EC%BB%A4%EB%84%A5%ED%8A%B8/id1625221269";
-            clearInterval(schInterval);
-          }, 2500);
-        }
-      } */
     </script>
   </body>
 </html>
