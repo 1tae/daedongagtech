@@ -255,7 +255,7 @@
         var openAppStore = function () {
           var end = new Date().getTime();
           if (end - start < 1500) {
-            window.location = launchAppUrl;
+            location.href = launchAppUrl;
           }
         };
         // 페이지가 숨겨지거나 포커스를 잃으면 앱 스토어로 리디렉션 방지
@@ -267,7 +267,7 @@
         // 1500ms 후에 실행되는 함수 설정
         timeout = setTimeout(openAppStore, 1500);
         // URL 스킴을 호출
-        window.location = scheme;
+        location.href = scheme;
         document.addEventListener("visibilitychange", clear);
         document.addEventListener("blur", clear);
       }
