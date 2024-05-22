@@ -245,10 +245,14 @@
       function openApp() {
         location.href = launchAppUrl;
       }
-
+      let moveStore = false;
       window.navigation.addEventListener("navigate", (event) => {
-        if (history.forward()) return;
+        if (moveStore) {
+          moveStore = false;
+          return;
+        }
         const tid = setTimeout(() => {
+          moveStore = true;
           var appStoreURL =
             os == "ios"
               ? "https://apps.apple.com/kr/app/id1625221269"
