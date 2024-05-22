@@ -267,7 +267,7 @@
         // 1500ms 후에 실행되는 함수 설정
         timeout = setTimeout(openAppStore, 1500);
         // URL 스킴을 호출
-        location.href = scheme;
+        location.href = launchAppUrl;
         document.addEventListener("visibilitychange", clear);
         document.addEventListener("blur", clear);
       }
