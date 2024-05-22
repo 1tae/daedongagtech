@@ -244,18 +244,7 @@
 
       function openApp() {
         window.location = launchAppUrl;
-      }
-
-      window.navigation.addEventListener("navigate", (event) => {
-        if (
-          window.performance.getEntriesByType("navigation")[0].type ==
-          "back_forward"
-        ) {
-          alert(1);
-          return false;
-        }
         const tid = setTimeout(() => {
-          moveStore = true;
           var appStoreURL =
             os == "ios"
               ? "https://apps.apple.com/kr/app/id1625221269"
@@ -264,8 +253,9 @@
         }, 1500);
         $(window).on("unload", () => {
           clearTimeout(tid);
+          history.back();
         });
-      });
+      }
 
       mo_chk();
     </script>
