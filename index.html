@@ -290,7 +290,7 @@
 
       function openApp() {
         if (os == "safari") {
-          window.location = launchAppUrl;
+          appStoreFallback();
         } else {
           urlSchemeCaller.call(launchAppUrl, appStoreFallback);
         }
