@@ -222,6 +222,8 @@
         $("#open-app").on("click", () => {
           location.href = launchAppUrl;
         });
+
+        mo_chk();
       });
 
       function mo_chk() {
@@ -252,7 +254,6 @@
           return (os = "pc");
         }
       }
-      mo_chk();
 
       class UrlSchemeCaller {
         windowState = "focus";
