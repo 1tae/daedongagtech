@@ -167,6 +167,7 @@
       var isAndroid = userAgent.search("android") > -1;
       var isIOS = /iphone|ipad|ipod|mac os/i.test(userAgent);
       var os;
+      var browser;
 
       $(document).on("ready", () => {
         // 현재 url 가져오기
@@ -232,14 +233,15 @@
           var userAgent = navigator.userAgent.toLowerCase();
           if (userAgent.search("android") > -1) {
             return (os = "android");
-          } else if (userAgent.search("safari")) {
-            return (os = "safari");
           } else if (
             userAgent.search("iphone") > -1 ||
             userAgent.search("ipod") > -1 ||
             userAgent.search("ipad") > -1 ||
             userAgent.search("mac os") > -1
           ) {
+            if (userAgent.search("safari")) {
+              browser = "safari";
+            }
             return (os = "ios");
           } else {
             return (os = "otehr");
@@ -289,7 +291,7 @@
       }
 
       function openApp() {
-        if (os == "safari") {
+        if (browser == "safari") {
           appStoreFallback();
         } else {
           urlSchemeCaller.call(launchAppUrl, appStoreFallback);
