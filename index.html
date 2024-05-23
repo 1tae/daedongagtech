@@ -287,7 +287,11 @@
       }
 
       function openApp() {
-        urlSchemeCaller.call(launchAppUrl, appStoreFallback);
+        if (os == "safari") {
+          window.location = launchAppUrl;
+        } else {
+          urlSchemeCaller.call(launchAppUrl, appStoreFallback);
+        }
       }
     </script>
   </body>
