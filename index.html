@@ -197,7 +197,7 @@
         const keywords = urlParams.get("boardKeyword");
         const contentImg = urlParams.get("imgUrl");
 
-        $("#post").text(content.length >= 30 ? content + "..." : content);
+        $("#post").text(content.length >= 200 ? content + "..." : content);
         if (keywords) {
           var keyword = keywords.split(";");
           for (var k in keyword) {
@@ -206,7 +206,12 @@
           }
         }
         if (contentImg) {
-          const img = `<img class="content-img" src="https://connect-cdn.daedong.co.kr${contentImg}" onLoad="javascript:void(0)"/>`;
+          let image_url;
+          image_url =
+            content.indexOf("http") != -1
+              ? ""
+              : "https://connect-cdn.daedong.co.kr";
+          const img = `<img class="content-img" src="${image_url}${contentImg}" onLoad="javascript:void(0)"/>`;
           $(".post").append(img);
         }
 
@@ -265,7 +270,7 @@
             if (this.windowState === "focus") {
               notInstalledCallback();
             }
-          }, 50);
+          }, 500);
           location.href = urlScheme;
         }
       }
@@ -275,7 +280,7 @@
       function appStoreFallback() {
         var appStoreURL =
           os == "ios"
-            ? "https://apps.apple.com/app/id1625221269"
+            ? "itms-appss://apps.apple.com/kr/app/id1625221269"
             : "https://play.google.com/store/apps/details?id=com.hae.daedong.user"; // 앱 스토어 URL
         window.location = appStoreURL;
         didFallback = true;
