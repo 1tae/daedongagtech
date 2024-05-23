@@ -241,6 +241,8 @@
           ) {
             if (userAgent.search("safari")) {
               browser = "safari";
+            } else {
+              window.location = urlScheme;
             }
             return (os = "ios");
           } else {
@@ -275,7 +277,7 @@
               notInstalledCallback();
             }
           }, 500);
-          location.href = urlScheme;
+          window.location = urlScheme;
         }
       }
 
