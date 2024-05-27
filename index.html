@@ -3,6 +3,22 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <meta name="description" content="Daedong TMS 커뮤니티" />
+    <meta name="keyword" content="Daedong" />
+    <meta name="author" content="Daedong" />
+
+    <meta id="og_title" content="Daedong TMS 커뮤니티" property="og:title" />
+    <meta
+      id="og_title"
+      content="/daedong_connect_1024.png"
+      property="og:title"
+    />
+    <meta
+      id="og_description"
+      content="농사가 편해지는 모든 순간, 대동커넥트"
+      property="og:description"
+    />
     <meta
       http-equiv="Content-Security-Policy"
       content="upgrade-insecure-requests"
@@ -199,6 +215,8 @@
         const contentImg = urlParams.get("imgUrl");
 
         $("#post").text(content.length >= 200 ? content + "..." : content);
+        $("#og_title").attr("content", content.slice(0, 15) + "...");
+
         if (keywords) {
           var keyword = keywords.split(";");
           for (var k in keyword) {
