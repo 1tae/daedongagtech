@@ -8,8 +8,10 @@
     <meta name="keyword" content="Daedong" />
     <meta name="author" content="Daedong" />
 
-    <meta id="og_title" content="Daedong TMS 커뮤니티" property="og:title" />
-    <meta content="/daedong_connect_1024.png" property="og:image" />
+    <meta
+      content="//connect-cdn.daedong.co.kr/prd/shared/ddm_logo_L.png"
+      property="og:image"
+    />
     <meta
       id="og_description"
       content="농사가 편해지는 모든 순간, 대동커넥트"
@@ -186,7 +188,11 @@
       // 파라미터 추출
       const urlParams = url.searchParams;
       const content = urlParams.get("boardContent");
-      $("#og_title").attr("content", content.slice(0, 15) + "...");
+      $("head").append(
+        `<meta id="og_title" content="${
+          content.slice(0, 15) + "..."
+        }" property="og:title" />`
+      );
 
       $(document).on("ready", () => {
         // 현재 url 가져오기
