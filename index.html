@@ -4,19 +4,21 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <meta name="description" content="Daedong TMS 커뮤니티" />
     <meta name="keyword" content="Daedong" />
     <meta name="author" content="Daedong" />
 
     <meta
-      content="//connect-cdn.daedong.co.kr/prd/shared/ddm_logo_L.png"
+      content="//connect-cdn.daedong.co.kr/prd/shared/daedong_connect_1024.png"
       property="og:image"
     />
+    <meta id="og_title" content="대동커넥트" property="og:title" />
     <meta
       id="og_description"
       content="농사가 편해지는 모든 순간, 대동커넥트"
       property="og:description"
     />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
     <meta
       http-equiv="Content-Security-Policy"
       content="upgrade-insecure-requests"
@@ -146,6 +148,15 @@
     </div>
     <div class="post">
       <div class="content-area">
+        <div
+          class="app-info"
+          style="font-size: 0.8rem; margin-bottom: 10px; margin-top: -0.5rem"
+        >
+          <b
+            >농업 AI 질문 답변, 정보 공유 커뮤니티, 맞춤형 영농정보 까지!<br />
+            농사가편해지는 모든 순간, 대동커넥트 앱을 만나보세요!
+          </b>
+        </div>
         <div class="tag-info">
           <span id="type">재배정보</span>
         </div>
@@ -183,17 +194,6 @@
       var os;
       var browser;
 
-      // 현재 url 가져오기
-      const url = new URL(window.location.href);
-      // 파라미터 추출
-      const urlParams = url.searchParams;
-      const content = urlParams.get("boardContent");
-      $("head").append(
-        `<meta id="og_title" content="${
-          content.slice(0, 15) + "..."
-        }" property="og:title" />`
-      );
-
       $(document).on("ready", () => {
         // 현재 url 가져오기
         const url = new URL(window.location.href);
@@ -219,6 +219,7 @@
         $("#date").text(date);
 
         // content
+        const content = urlParams.get("boardContent");
         const keywords = urlParams.get("boardKeyword");
         const contentImg = urlParams.get("imgUrl");
 
