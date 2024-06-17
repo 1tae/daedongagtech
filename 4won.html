@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-Frame-Options" content="deny" />
+    <title>샤원모임</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+        border: 1px solid #004458;
+      }
+      .header {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+      .filters {
+        margin-bottom: 20px;
+      }
+      .filters .row {
+        display: flex;
+        justify-content: space-between;
+        border: 1px solid #004458;
+        padding: 10px;
+        border-radius: 10px;
+        background-color: #e0f7ff;
+      }
+      .filters .row div {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+      }
+      .labels {
+        display: flex;
+        gap: 10px;
+      }
+      .label {
+        cursor: pointer;
+      }
+      .label.selected {
+        font-weight: bold;
+      }
+      .filter-buttons {
+        display: flex;
+        gap: 10px;
+        margin-top: 10px;
+      }
+      .filter-buttons button {
+        background-color: #004458;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      .filter-buttons button:hover {
+        background-color: #003244;
+      }
+      .content {
+        display: flex;
+        gap: 20px;
+      }
+      .table {
+        flex: 1;
+        border: 1px solid #004458;
+        padding: 20px;
+        text-align: center;
+        position: relative;
+      }
+      iframe {
+        flex: 1;
+        border: none;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: none;
+        z-index: 1;
+      }
+      .hide-button {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background-color: #004458;
+        color: white;
+        border: none;
+        padding: 10px;
+        border-radius: 5px;
+        cursor: pointer;
+        display: none;
+        z-index: 2;
+      }
+      .hide-button:hover {
+        background-color: #003244;
+      }
+      @media (max-width: 768px) {
+        .content {
+          flex-direction: column;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1>샤원모임</h1>
+      </div>
+      <div class="filters">
+        <div class="row">
+          <div>지역</div>
+          <div class="labels">
+            <span class="label">남부</span>
+            <span class="label">강남</span>
+            <span class="label">교대</span>
+          </div>
+        </div>
+        <div class="row">
+          <div>카테고리</div>
+          <div>한식 중식 <strong>일식</strong></div>
+        </div>
+        <div class="row">
+          <div>태그</div>
+          <div>한식 중식 <strong>일식</strong></div>
+        </div>
+        <div class="row">
+          <div>가격대</div>
+          <div>한식 중식 <strong>일식</strong></div>
+        </div>
+      </div>
+      <div class="filter-buttons">
+        <button>필터1 x</button>
+        <button>필터2 x</button>
+      </div>
+      <div class="content">
+        <div class="table">
+          <p>테이블</p>
+          <button class="hide-button" onclick="hideIframe()">
+            iframe 숨기기
+          </button>
+          <iframe src="https://www.naver.com"></iframe>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      document.querySelectorAll(".label").forEach((label) => {
+        label.addEventListener("click", function () {
+          this.classList.toggle("selected");
+        });
+      });
+
+      function showIframe() {
+        const iframe = document.querySelector("iframe");
+        const hideButton = document.querySelector(".hide-button");
+        iframe.style.display = "block";
+        hideButton.style.display = "block";
+      }
+
+      function hideIframe() {
+        const iframe = document.querySelector("iframe");
+        const hideButton = document.querySelector(".hide-button");
+        iframe.style.display = "none";
+        hideButton.style.display = "none";
+      }
+
+      // 예제: 테이블의 행을 클릭했을 때 showIframe 함수 호출
+      document.querySelector(".table").addEventListener("click", showIframe);
+    </script>
+  </body>
+</html>
