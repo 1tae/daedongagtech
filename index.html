@@ -8,7 +8,7 @@
     <meta name="author" content="Daedong" />
 
     <meta
-      content="//connect-cdn.daedong.co.kr/prd/shared/daedong_connect_1024.png"
+      content="//connect-cdn.daedong.co.kr/prd/shared/daedong_opengraph.png"
       property="og:image"
     />
     <meta id="og_title" content="대동커넥트" property="og:title" />
@@ -77,9 +77,10 @@
       }
 
       .logo {
-        margin-left: 1rem;
+        margin-left: 0.5rem;
         margin-top: 1rem;
         height: 2rem;
+        float: left;
       }
 
       .link-btn {
@@ -87,14 +88,14 @@
         background-color: #303030;
         border: 1.4px solid white;
         color: white;
-        padding: 0.5rem;
-        min-width: 50px;
+        padding: 0.3rem;
+        font-size: 0.7rem;
       }
 
       .link-area {
         position: absolute;
         top: 1rem;
-        right: 1rem;
+        right: 0.5rem;
       }
 
       .user-info {
@@ -134,29 +135,31 @@
         object-fit: cover;
         border-radius: 100%;
       }
+
+      .app-info {
+        font-size: 0.6rem;
+        float: left;
+        margin-top: 1rem;
+        margin-left: 0.3rem;
+      }
     </style>
   </head>
   <body style="margin: 0">
     <div class="head_space">
-      <img class="logo" src="./ddm_logo_L.png" alt="logo" />
-    </div>
-    <div class="link-area">
-      <button class="link-btn" style="margin-right: 0.3rem" onclick="openApp()">
-        앱 설치
-      </button>
-      <button id="open-app" class="link-btn">앱 열기</button>
+      <img class="logo" src="./대동-logo.png" alt="logo" />
+      <div class="app-info" style="">
+        <b
+          >AI 농업답변, 커뮤니티, 맞춤형 영농정보<br />
+          농사가 편해지는 모든 순간, 대동 커넥트
+        </b>
+      </div>
+      <div class="link-area">
+        <button class="link-btn" onclick="openApp()">앱 설치</button>
+        <button id="open-app" class="link-btn">앱 열기</button>
+      </div>
     </div>
     <div class="post">
       <div class="content-area">
-        <div
-          class="app-info"
-          style="font-size: 0.8rem; margin-bottom: 10px; margin-top: -0.5rem"
-        >
-          <b
-            >농업 AI 질문 답변, 정보 공유 커뮤니티, 맞춤형 영농정보 까지!<br />
-            농사가편해지는 모든 순간, 대동커넥트 앱을 만나보세요!
-          </b>
-        </div>
         <div class="tag-info">
           <span id="type">재배정보</span>
         </div>
