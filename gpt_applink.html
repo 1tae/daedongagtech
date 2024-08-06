@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>대동커넥트</title>
+    <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.12.4.min.js"></script>
+    <style>
+        #home {
+            width: 100%;
+            height: 100%;
+            
+        }
+        
+        img {
+            width: 100%;
+        }
+
+        #header {
+            min-height: 100px;
+            display: flex;
+            margin-bottom: 5%;
+        }
+
+        #footer {
+            background-color: #ee4325;
+            height: 20%;
+            width: 100%;
+            display: flex;
+        }
+        div {
+            color: white;
+        }
+
+        #weight {
+            margin-top: 10%;
+            font-size: 6vw;
+            font-weight: bolder;
+        }
+
+        #light{
+            font-size: 3vw;
+            font-weight: lighter;
+        }
+
+        #btn_area {
+            height: 100%;
+            margin: 10%;
+            min-height: 80px;
+            
+        }
+
+        button {
+            height: 35%;
+            width: 90%;
+            margin: 2%;
+            border-radius: 1.5vh;
+            background-color: white;
+            color: #ee4325;
+            border: none;
+            font-size: 1.8vh;
+            font-weight: bolder;
+        }
+
+        #text_area{
+            padding: 2%;
+            max-height: 95%;
+        }
+
+        #abs {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+        }
+
+        #nav {
+            font-size: 7vw;
+            color: #ee4325;
+            font-weight: bolder;
+        }
+    </style>
+</head>
+<body>
+    <div id="home">
+        <div id="header">
+            <div style="flex: 1; margin-right: 3%;">
+                <img src="./logo.png" >
+            </div>
+            <div style="flex: 9;">
+                <div id="nav">대동커넥트</div>
+            </div>
+        </div>
+        <img src="./cap1.png">
+    </div>
+    <div id="abs">
+        <div id="footer">
+            <div style="flex: 2;">
+                <img src="./logo.png" style="max-width: 50%; max-height: 50%; margin: 25%; margin-left: 40%; border: 1px solid white; min-height: 50px; min-width: 50px;">
+            </div>
+            <div id="text_area" style="flex: 3;">
+                <div id="weight">대동커넥트</div>
+                <div id="light">커뮤니티 글 작성 <br>
+                    주유권 이벤트 진행 중!
+                </div>
+            </div>
+            <div style="flex: 2;">
+                <div id="btn_area">
+                    <button id="install" onclick="install()">앱 설치</button>
+                    <button id="openApp">앱 열기</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+      var launchAppUrl = "daedong19470520://main_page"; // 앱 스키마
+      var timer; // 타이머
+      var schInterval;
+      var userAgent = navigator.userAgent.toLowerCase();
+      var isAndroid = userAgent.search("android") > -1;
+      var isIOS = /iphone|ipad|ipod|mac os/i.test(userAgent);
+      var os;
+      var browser;
+
+      $(document).on("ready", () => {
+        $("#openApp").on("click", () => {
+          location.href = launchAppUrl;
+        });
+        mo_chk();
+      });
+
+      function mo_chk() {
+        var mobile = /iphone|ipad|ipod|mac os|android/i.test(
+          navigator.userAgent.toLowerCase()
+        );
+
+        if (mobile) {
+          var userAgent = navigator.userAgent.toLowerCase();
+          if (userAgent.search("android") > -1) {
+            return (os = "android");
+          } else if (
+            userAgent.search("iphone") > -1 ||
+            userAgent.search("ipod") > -1 ||
+            userAgent.search("ipad") > -1 ||
+            userAgent.search("mac os") > -1
+          ) {
+            if (userAgent.search("safari")) {
+              browser = "safari";
+            } else {
+              window.location = urlScheme;
+            }
+            return (os = "ios");
+          } else {
+            return (os = "otehr");
+          }
+        } else {
+          return (os = "pc");
+        }
+      }
+
+      class UrlSchemeCaller {
+        windowState = "focus";
+
+        constructor() {
+          this.init();
+        }
+
+        init() {
+          window.addEventListener("focus", () => {
+            this.windowState = "focus";
+          });
+
+          window.addEventListener("blur", () => {
+            this.windowState = "blur";
+          });
+        }
+
+        call(urlScheme, notInstalledCallback) {
+          setTimeout(() => {
+            if (this.windowState === "focus") {
+              notInstalledCallback();
+            }
+          }, 500);
+          window.location = urlScheme;
+        }
+      }
+
+      window.urlSchemeCaller = new UrlSchemeCaller();
+
+      function appStoreFallback() {
+        var appStoreURL =
+          os == "ios"
+            ? "itms-appss://apps.apple.com/kr/app/id1625221269"
+            : "https://play.google.com/store/apps/details?id=com.hae.daedong.user"; // 앱 스토어 URL
+        window.location = appStoreURL;
+        didFallback = true;
+      }
+
+      function install() {
+        if (browser == "safari") {
+          appStoreFallback();
+        } else {
+          urlSchemeCaller.call(launchAppUrl, appStoreFallback);
+        }
+      }
+
+    </script>
+</body>
+</html>
